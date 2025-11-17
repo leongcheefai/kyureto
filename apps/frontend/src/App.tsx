@@ -2,6 +2,8 @@ import { useState } from 'react'
 import * as Label from '@radix-ui/react-label'
 import { UploadIcon, CheckCircledIcon, CrossCircledIcon, ReloadIcon, MagicWandIcon } from '@radix-ui/react-icons'
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'
+
 function App() {
   const [file, setFile] = useState<File | null>(null)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -40,7 +42,7 @@ function App() {
       // Convert file to base64
       const base64Image = originalImage.split(',')[1]
 
-      const response = await fetch('http://localhost:3000/api/images/transform', {
+      const response = await fetch(`${BACKEND_URL}/api/images/transform`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +58,7 @@ function App() {
 
       if (response.ok) {
         // Set the transformed image URL
-        setTransformedImage(`http://localhost:3000${data.filePath}`)
+        setTransformedImage(`${BACKEND_URL}${data.filePath}`)
         setMessage({ type: 'success', text: 'Image transformed successfully!' })
       } else {
         setMessage({ type: 'error', text: data.message || 'Failed to transform image' })
