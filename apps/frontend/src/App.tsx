@@ -1,58 +1,13 @@
 import { useState } from 'react'
-import * as Form from '@radix-ui/react-form'
 import * as Label from '@radix-ui/react-label'
-import * as Dialog from '@radix-ui/react-dialog'
-import { UploadIcon, CheckCircledIcon, CrossCircledIcon, ReloadIcon, Cross2Icon, MagicWandIcon } from '@radix-ui/react-icons'
+import { UploadIcon, CheckCircledIcon, CrossCircledIcon, ReloadIcon, MagicWandIcon } from '@radix-ui/react-icons'
 
 function App() {
   const [file, setFile] = useState<File | null>(null)
-  const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
-  const [dialogOpen, setDialogOpen] = useState(false)
-  const [submittedEmail, setSubmittedEmail] = useState('')
   const [originalImage, setOriginalImage] = useState<string | null>(null)
   const [transformedImage, setTransformedImage] = useState<string | null>(null)
   const [transforming, setTransforming] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    const formData = new FormData(e.currentTarget)
-    const email = formData.get('email') as string
-
-    if (!email || !file) {
-      setMessage({ type: 'error', text: 'Please provide both email and file' })
-      return
-    }
-
-    setLoading(true)
-    setMessage(null)
-
-    try {
-      formData.append('file', file)
-
-      const response = await fetch('http://localhost:3000/generate-photos', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setSubmittedEmail(email)
-        setDialogOpen(true)
-        e.currentTarget.reset()
-        setFile(null)
-      } else {
-        setMessage({ type: 'error', text: data.message || 'Failed to generate photos' })
-      }
-    } catch (error) {
-      setMessage({ type: 'error', text: 'Error connecting to server' })
-      console.error('Error:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
