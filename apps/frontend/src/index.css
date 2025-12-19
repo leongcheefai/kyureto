@@ -25,6 +25,10 @@
   box-sizing: border-box;
 }
 
+button, a {
+  border-radius: 0;
+}
+
 ::selection {
   background: #1A1A1A;
   color: #FFF7F4;
@@ -54,26 +58,24 @@ html {
   position: relative;
   padding: 1rem 2rem;
   background-color: #FF6B35;
-  color: #FFF7F4;
+  color: #1A1A1A;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   border: 3px solid #FF6B35;
-  transition: all 0.1s;
+  transition: all 0.15s;
   font-family: "Inter", sans-serif;
   font-size: 1.25rem;
 }
 
 .btn-brutal:hover {
-  background-color: #FFF7F4;
+  background-color: #1A1A1A;
   color: #FF6B35;
-  transform: translate(-4px, -4px);
-  box-shadow: 4px 4px 0 #FF6B35;
+  border-color: #1A1A1A;
 }
 
 .btn-brutal:active {
-  transform: translate(0, 0);
-  box-shadow: none;
+  opacity: 0.9;
 }
 
 .btn-brutal:disabled {
@@ -180,7 +182,35 @@ html {
 
 /* Border utilities */
 .border-3 {
-  border-width: 3px;
+  border-width: 1.5px;
+}
+.border-b-3 {
+  border-bottom-width: 1.5px;
+}
+.border-t-3 {
+  border-top-width: 1.5px;
+}
+.border-l-3 {
+  border-left-width: 1.5px;
+}
+.border-r-3 {
+  border-right-width: 1.5px;
+}
+
+/* Responsive border utilities */
+@media (min-width: 768px) {
+  .md\:border-b-0 {
+    border-bottom-width: 0;
+  }
+  .md\:border-r-3 {
+    border-right-width: 1.5px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:border-b-0 {
+    border-bottom-width: 0;
+  }
 }
 
 /* Giant display text */
@@ -233,3 +263,6 @@ html {
 .hover\:bg-accent:hover { background-color: #FF6B35; }
 .hover\:bg-primary:hover { background-color: #1A1A1A; }
 .hover\:bg-light:hover { background-color: #FFF7F4; }
+.hover\:border-accent:hover { border-color: #FF6B35; }
+.hover\:border-primary:hover { border-color: #1A1A1A; }
+.hover\:border-light:hover { border-color: #FFF7F4; }

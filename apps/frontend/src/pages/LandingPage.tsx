@@ -180,7 +180,7 @@ export default function LandingPage() {
           <div className="flex justify-end">
             <button
               onClick={() => setAuthModal('login')}
-              className="px-6 py-2 rounded-full text-xs tracking-[0.15em] font-bold border-3 transition-colors flex items-center justify-center uppercase bg-accent text-white border-accent hover:bg-[#FF8855] hover:border-[#FF8855]"
+              className="px-6 py-2 text-xs tracking-[0.15em] font-bold border-3 transition-colors flex items-center justify-center uppercase bg-accent text-primary border-accent hover:bg-primary hover:text-accent hover:border-primary"
               aria-label="Login"
             >
               Login
@@ -192,7 +192,7 @@ export default function LandingPage() {
       {/* Hero Section - Full Screen with Background Image */}
       <section
         className="h-screen bg-cover bg-center bg-no-repeat relative border-b-3 border-primary"
-        style={{ backgroundImage: "url('/assets/mainphoto.jpg')" }}
+        style={{ backgroundImage: "url('/mainphoto.jpg')" }}
       >
       </section>
 
@@ -211,12 +211,65 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Before/After Section */}
+      <section className="border-b-3 border-primary overflow-x-auto cursor-grab active:cursor-grabbing" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+        <div className="flex" style={{ width: 'max-content' }}>
+          {[1, 2, 3].map((set, setIndex) => (
+            <div key={set} className="flex">
+              {/* Before */}
+              <div className="relative border-r-3 border-primary w-[45vw] md:w-[33vw] aspect-square">
+                <div className="absolute top-4 left-4 bg-primary text-light px-3 py-1.5 text-sm font-bold uppercase tracking-wider z-10">
+                  Before
+                </div>
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <img
+                    src={`/before-${set}.jpg`}
+                    alt={`Before transformation ${set}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="hidden flex-col items-center justify-center text-primary/40">
+                    <span className="text-5xl mb-2">📷</span>
+                    <span className="text-sm">Before {set}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* After */}
+              <div className={`relative w-[45vw] md:w-[33vw] aspect-square ${setIndex < 2 ? 'border-r-3 border-primary' : ''}`}>
+                <div className="absolute top-4 left-4 bg-accent text-primary px-3 py-1.5 text-sm font-bold uppercase tracking-wider z-10">
+                  After
+                </div>
+                <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <img
+                    src={`/after-${set}.jpg`}
+                    alt={`After transformation ${set}`}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none';
+                      e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                    }}
+                  />
+                  <div className="hidden flex-col items-center justify-center text-primary/40">
+                    <span className="text-5xl mb-2">✨</span>
+                    <span className="text-sm">After {set}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Marquee */}
-      <div className="bg-primary text-light py-3 overflow-hidden border-b-3 border-primary">
+      <div className="py-4 overflow-hidden border-b-3 border-primary bg-primary">
         <div className="animate-marquee whitespace-nowrap flex">
           {[...Array(10)].map((_, i) => (
-            <span key={i} className="mx-8 text-sm tracking-[0.3em] font-bold text-display">
-              PROFESSIONAL PHOTOS • NO EQUIPMENT • INSTANT RESULTS • AI POWERED •
+            <span key={i} className="mx-8 text-2xl md:text-3xl tracking-[0.2em] font-bold text-accent" style={{ fontFamily: 'Belanosima, sans-serif' }}>
+              MAKE YOUR SOCIAL MEDIA ON BRAND WITHOUT BREAKING A BANK •
             </span>
           ))}
         </div>
@@ -241,11 +294,11 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="border-b-3 border-primary">
+      <section>
         <div className="p-8 md:p-16 border-b-3 border-primary">
           <h2 className="text-5xl md:text-7xl tracking-[0.05em] text-center" style={{ fontFamily: 'Belanosima, sans-serif' }}>easy as 1, 2, 3</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 border-b-3 border-primary">
           {/* Step 1 */}
           <div className="p-8 md:p-12 flex flex-col items-center text-center">
             <div className="w-20 h-20 bg-accent text-light flex items-center justify-center text-4xl mb-6 rounded-full" style={{ fontFamily: 'Belanosima, sans-serif' }}>
@@ -300,35 +353,35 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="border-b-3 border-primary">
+      <section id="pricing">
         <div className="p-8 md:p-16 border-b-3 border-primary">
           <h2 className="text-5xl md:text-7xl tracking-[0.05em] text-center" style={{ fontFamily: 'Belanosima, sans-serif' }}>pricing</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 md:grid-cols-3 border-b-3 border-primary">
           {PRICING.map((plan, i) => (
             <div
               key={plan.name}
               className={`
                 p-8 md:p-12 flex flex-col
                 ${i < PRICING.length - 1 ? 'border-b-3 md:border-b-0 md:border-r-3 border-primary' : ''}
-                ${plan.featured ? 'bg-accent text-light' : ''}
+                ${plan.featured ? 'bg-accent text-primary' : ''}
               `}
             >
               <div className="mb-6">
-                <span className={`text-sm tracking-[0.1em] ${plan.featured ? 'text-light/60' : 'opacity-60'}`} style={{ fontFamily: 'Inter, sans-serif' }}>
+                <span className={`text-sm tracking-[0.1em] ${plan.featured ? 'text-primary/60' : 'opacity-60'}`} style={{ fontFamily: 'Inter, sans-serif' }}>
                   {plan.name}
                 </span>
               </div>
               <div className="mb-8">
                 <span className="text-6xl md:text-7xl" style={{ fontFamily: 'Belanosima, sans-serif' }}>${plan.price}</span>
-                <span className={`text-sm tracking-wider ${plan.featured ? 'text-light/60' : 'opacity-60'}`} style={{ fontFamily: 'Belanosima, sans-serif' }}>
+                <span className={`text-sm tracking-wider ${plan.featured ? 'text-primary/60' : 'opacity-60'}`} style={{ fontFamily: 'Belanosima, sans-serif' }}>
                   {plan.period}
                 </span>
               </div>
               <ul className="space-y-3 mb-8 flex-1">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-center gap-3 text-sm">
-                    <CheckIcon className={`w-4 h-4 flex-shrink-0 ${plan.featured ? 'text-light' : ''}`} />
+                    <CheckIcon className={`w-4 h-4 flex-shrink-0 ${plan.featured ? 'text-primary' : ''}`} />
                     {feature}
                   </li>
                 ))}
@@ -336,10 +389,10 @@ export default function LandingPage() {
               <button
                 onClick={() => setAuthModal('signup')}
                 className={`
-                  w-full py-4 text-lg tracking-[0.1em] border-3 transition-all
+                  w-full py-4 text-lg tracking-[0.1em] uppercase border-3 transition-all rounded-none
                   ${plan.featured
-                    ? 'bg-light text-primary border-light hover:bg-transparent hover:text-light'
-                    : 'bg-primary text-light border-primary hover:bg-light hover:text-primary'
+                    ? 'bg-primary text-accent border-primary hover:bg-accent hover:text-primary hover:border-accent'
+                    : 'bg-accent text-primary border-accent hover:bg-primary hover:text-accent hover:border-primary'
                   }
                 `}
                 style={{ fontFamily: 'Belanosima, sans-serif' }}
@@ -352,7 +405,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-b-3 border-primary">
+      <footer>
         {/* Newsletter Section */}
         <div className="px-8 py-12 md:px-16 border-b-3 border-primary">
           <div className="max-w-xl mx-auto text-center">
@@ -370,7 +423,7 @@ export default function LandingPage() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-accent text-white text-sm font-bold tracking-[0.1em] uppercase border-3 border-accent hover:bg-[#FF8855] hover:border-[#FF8855] transition-colors"
+                className="px-6 py-3 bg-accent text-primary text-sm font-bold tracking-[0.1em] uppercase border-3 border-accent hover:bg-primary hover:text-accent hover:border-primary transition-colors"
               >
                 Subscribe
               </button>
@@ -402,7 +455,7 @@ export default function LandingPage() {
             </a>
             <a
               href="mailto:hello@kyureto.com"
-              className="px-5 py-2 bg-accent text-white text-sm font-medium rounded-full hover:bg-[#FF8855] transition-colors"
+              className="px-5 py-2 bg-accent text-primary text-sm font-bold uppercase tracking-[0.1em] border-3 border-accent hover:bg-primary hover:text-accent hover:border-primary transition-colors"
             >
               Contact
             </a>
